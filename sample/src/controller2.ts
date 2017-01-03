@@ -1,6 +1,6 @@
-import {Controller} from "../../core/src/decorators/controller.decorator";
-import {HttpGet} from "../../core/src/decorators/http-method.decorators";
-import {Path, Res} from "../../core/src/decorators/param.decorator";
+import {Controller} from "../../packages/core/src/decorators/controller.decorator";
+import {HttpGet} from "../../packages/core/src/decorators/http-method.decorators";
+import {Path, Res} from "../../packages/core/src/decorators/param.decorator";
 
 @Controller("/users")
 export default class ControllerImpl {
