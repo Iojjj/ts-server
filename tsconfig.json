@@ -1,0 +1,41 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "target": "es5",
+        "outDir": ".bin",
+//        "declarationDir": ".bin",
+//        "declaration": false,
+        "sourceMap": true,
+        "strictNullChecks": true,
+        "allowUnreachableCode": false,
+        "noImplicitThis": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "removeComments": true,
+        "noUnusedLocals": true,
+        "noImplicitReturns": true,
+        "noImplicitAny": true,
+        "forceConsistentCasingInFileNames": true,
+        "typeRoots": [
+            "node_modules/@types",
+            "core/node_modules/@types",
+            "express/node_modules/@types",
+            "koa/node_modules/@types",
+            "sample/node_modules/@types"
+        ],
+        "lib": ["es6", "dom"]
+    },
+    "exclude": [
+        "node_modules",
+        "core/node_modules",
+        "express/node_modules",
+        "koa/node_modules",
+        "sample/node_modules",
+        ".bin"
+    ],
+    "filesGlob": [
+        "src/**/*.ts",
+        "node_modules/@types/**/*.d.ts"
+    ]
+}

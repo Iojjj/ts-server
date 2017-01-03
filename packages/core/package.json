@@ -1,0 +1,34 @@
+{
+  "name": "ts-server-core",
+  "version": "0.0.1",
+  "description": "description",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Iojjj/ts-server.git"
+  },
+  "keywords": [
+    "typescript",
+    "express",
+    "koa",
+    "server",
+    "decorators"
+  ],
+  "author": "Alexander Vlasov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Iojjj/ts-server/issues"
+  },
+  "homepage": "https://github.com/Iojjj/ts-server#readme",
+  "dependencies": {
+    "glob": "^7.1.1",
+    "reflect-metadata": "^0.1.9"
+  },
+  "devDependencies": {
+    "@types/glob": "^5.0.30",
+    "@types/reflect-metadata": "0.0.5"
+  }
+}
