@@ -1,0 +1,1 @@
+export const REQUIRED_PARAM_NAMES = ["query", "header", "file", "param"];

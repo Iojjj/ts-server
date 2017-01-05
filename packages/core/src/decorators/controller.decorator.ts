@@ -1,18 +1,16 @@
-import {Decorator} from "./decorator";
-import {RouteType} from "./http-method.decorators";
-import {HttpMethodMetadata} from "./http-method.metadata";
+import {RouteType} from "../server.types";
+import {DecoratorFactory} from "./decorator.factory";
+import {ControllerMetadataImpl} from "./controller.metadata";
 
-export function Controller(route?: string): Function;
-export function Controller(route?: RegExp): Function;
-export function Controller(route?: string|RegExp): Function {
-    return Decorator.defineController({
-        route: route || "",
-        actions: []
-    });
-}
-
-export interface ControllerDecoratorOptions {
-
-    readonly route: RouteType;
-    readonly actions: HttpMethodMetadata[];
+/**
+ * Decorator that tells server to treat decorated class as controller.
+ * @param route controller's route
+ * @returns {(target:any)=>void}
+ */
+export function Controller(route?: RouteType) {
+    return function (target: any) {
+        const metadata = new ControllerMetadataImpl();
+        metadata.route = route || "";
+        DecoratorFactory.newControllerDecoratorService().define(target, metadata);
+    }
 }

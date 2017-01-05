@@ -3,3 +3,6 @@
 build
 publish
 node_modules
+# ignore all generated js files in src folder
+**/src/**/*.js
+*.log

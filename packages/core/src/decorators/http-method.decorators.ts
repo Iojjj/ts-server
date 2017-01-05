@@ -1,44 +1,67 @@
-import {Decorator} from "./decorator";
-import {HttpMethodName} from "./http-method.names";
+import {RouteType, HttpMethodName} from "../server.types";
+import {DecoratorFactory} from "./decorator.factory";
+import {HttpMethodMetadataImpl} from "./http-method.metadata";
 
-export type RouteType = string | RegExp;
+const defineMethod = function (route: RouteType, method: HttpMethodName,
+                               target: any, methodName: string, descriptor: PropertyDescriptor) {
+    const metadata = new HttpMethodMetadataImpl();
+    metadata.route = route;
+    metadata.httpMethodName = method;
+    return DecoratorFactory.newHttpMethodDecoratorService().define(target, methodName, descriptor, metadata);
+};
 
-function defineHttpMethod(methodName: HttpMethodName, route: RouteType) {
-    return Decorator.defineHttpMethod(methodName, route);
+/**
+ * Decorator for GET action.
+ * @param route route for action
+ * @return {(target:any, methodName:string, descriptor:PropertyDescriptor)=>PropertyDescriptor}
+ */
+export function HttpGet(route?: RouteType) {
+    return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
+        return defineMethod(route || "", "get", target, methodName, descriptor);
+    }
 }
 
-export function HttpGet(): Function;
-export function HttpGet(route: string): Function;
-export function HttpGet(route: RegExp): Function;
-export function HttpGet(route?: RouteType): Function {
-    return defineHttpMethod("get", route || "");
+/**
+ * Decorator for POST action.
+ * @param route route for action
+ * @return {(target:any, methodName:string, descriptor:PropertyDescriptor)=>PropertyDescriptor}
+ */
+export function HttpPost(route?: RouteType) {
+    return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
+        return defineMethod(route || "", "post", target, methodName, descriptor);
+    }
 }
 
-export function HttpPost(): Function;
-export function HttpPost(route: string): Function;
-export function HttpPost(route: RegExp): Function;
-export function HttpPost(route?: RouteType): Function {
-    return defineHttpMethod("post", route || "");
+/**
+ * Decorator for PUT action.
+ * @param route route for action
+ * @return {(target:any, methodName:string, descriptor:PropertyDescriptor)=>PropertyDescriptor}
+ */
+export function HttpPut(route?: RouteType) {
+    return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
+        return defineMethod(route || "", "put", target, methodName, descriptor);
+    }
 }
 
-export function HttpPut(): Function;
-export function HttpPut(route: string): Function;
-export function HttpPut(route: RegExp): Function;
-export function HttpPut(route?: RouteType): Function {
-    return defineHttpMethod("put", route || "");
+/**
+ * Decorator for DELETE action.
+ * @param route route for action
+ * @return {(target:any, methodName:string, descriptor:PropertyDescriptor)=>PropertyDescriptor}
+ */
+export function HttpDelete(route?: RouteType) {
+    return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
+        return defineMethod(route || "", "delete", target, methodName, descriptor);
+    }
 }
 
-
-export function HttpDelete(): Function;
-export function HttpDelete(route: string): Function;
-export function HttpDelete(route: RegExp): Function;
-export function HttpDelete(route?: RouteType): Function {
-    return defineHttpMethod("delete", route || "");
-}
-
-export function HttpMethod(method: HttpMethodName): Function;
-export function HttpMethod(method: HttpMethodName, route: string): Function;
-export function HttpMethod(method: HttpMethodName, route: RegExp): Function;
-export function HttpMethod(method: HttpMethodName, route?: RouteType): Function {
-    return defineHttpMethod(method, route || "");
+/**
+ * Decorator for action with custom HTTP method name.
+ * @param method HTTP method name
+ * @param route route for action
+ * @return {(target:any, methodName:string, descriptor:PropertyDescriptor)=>PropertyDescriptor}
+ */
+export function HttpMethod(method: HttpMethodName, route?: RouteType) {
+    return function (target: any, methodName: string, descriptor: PropertyDescriptor) {
+        return defineMethod(route || "", method, target, methodName, descriptor);
+    }
 }

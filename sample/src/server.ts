@@ -8,7 +8,7 @@ import * as path from "path";
     caseSensitiveRouting: true,
     viewEngine: {
         "hbs": () => {
-        }
+        },
     },
     views: [],
     viewCache: true,

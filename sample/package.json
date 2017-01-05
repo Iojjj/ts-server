@@ -1,24 +1,24 @@
 {
-  "name": "ts-server-sample",
-  "version": "1.0.0",
-  "description": "description",
-  "main": "index.js",
-  "scripts": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Iojjj/ts-server.git"
-  },
-  "keywords": [
-    "typescript",
-    "express",
-    "koa",
-    "server",
-    "decorators"
-  ],
-  "author": "Alexander Vlasov",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Iojjj/ts-server/issues"
-  },
-  "homepage": "https://github.com/Iojjj/ts-server#readme"
+    "name": "ts-server-sample",
+    "version": "1.0.0",
+    "description": "description",
+    "main": "index.js",
+    "scripts": {},
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Iojjj/ts-server.git"
+    },
+    "keywords": [
+        "typescript",
+        "express",
+        "koa",
+        "server",
+        "decorators"
+    ],
+    "author": "Alexander Vlasov",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Iojjj/ts-server/issues"
+    },
+    "homepage": "https://github.com/Iojjj/ts-server#readme"
 }

@@ -1,9 +1,10 @@
 import express = require("express");
-import {AbstractDriver} from "../../core/src/server.abstract.driver";
-import {ServerDecoratorOptions, ViewEngine} from "../../core/src/decorators/server.decorator";
-import * as util from "util";
+import {AbstractDriver} from "../../core/src/server.driver";
+import {ServerDecoratorOptions} from "../../core/src/decorators/server.decorator";
 import {ControllerMetadata} from "../../core/src/decorators/controller.metadata";
-import {ParamType} from "../../core/src/decorators/param.type";
+import {ParamType} from "../../core/src/server.types";
+import {Logger} from "../../core/src/logger";
+import {isArray} from "util";
 
 export class ExpressDriver extends AbstractDriver<express.Application, express.Request> {
 
@@ -24,19 +25,27 @@ export class ExpressDriver extends AbstractDriver<express.Application, express.R
     private configureControllers(controllers: ControllerMetadata[]) {
         controllers.map(metadata => {
             const router = express.Router();
-            const route = [
-                this.path(metadata.prefix),
-                this.path(metadata.version),
-                this.path(metadata.route.toString())
-            ].join("");
-            console.log(`registering controller with route "${route}"`);
-            metadata.actions.forEach(actionMetadata => {
-                (router as any)[actionMetadata.actionName](actionMetadata.route, (req: any, res: any, next: any) => {
-                    actionMetadata.action(req, res, next, this);
+            let routes: (string|RegExp)[];
+            if (isArray(metadata.route)) {
+                routes = metadata.route as (string|RegExp)[];
+            } else {
+                routes = [metadata.route as (string|RegExp)];
+            }
+            routes.forEach(r => {
+                const route = [
+                    this.path(metadata.prefix),
+                    this.path(metadata.version),
+                    this.path(r.toString())
+                ].join("");
+                Logger.console().log(`registering controller with route "${route}"`);
+                metadata.httpMethods.forEach(httpMetadata => {
+                    (router as any)[httpMetadata.httpMethodName](httpMetadata.route, (req: any, res: any, next: any) => {
+                        httpMetadata.action(req, res, next, this);
+                    });
+                    Logger.console().log(`registered route "${httpMetadata.httpMethodName.toUpperCase()} - ${httpMetadata.route}"`);
                 });
-                console.log(`registered route "${actionMetadata.route}"`);
+                this.application.use(route, router);
             });
-            this.application.use(route, router);
         })
     }
 
@@ -69,14 +78,11 @@ export class ExpressDriver extends AbstractDriver<express.Application, express.R
     }
 
     private setupViewEngines(options: ServerDecoratorOptions) {
-        if (options.viewEngine) {
-            let engines: ViewEngine[] = [];
-            if (util.isArray(options.viewEngine)) {
-                (options.viewEngine as ViewEngine[]).forEach(engine => engines.push(engine));
-            } else {
-                engines.push(options.viewEngine as ViewEngine);
-            }
-            this.application.set("view engine", engines);
+        const viewEngine = options.viewEngine;
+        if (viewEngine) {
+            Object
+                .keys(viewEngine)
+                .forEach(key => this.application.engine(key, viewEngine[key]));
         }
     }
 
@@ -115,6 +121,9 @@ export class ExpressDriver extends AbstractDriver<express.Application, express.R
             case "cookie": {
                 if (!req.headers["cookie"]) {
                     break;
+                }
+                if (!paramName) {
+                    return req.headers["cookie"];
                 }
                 // TODO: extract cookie
                 //const cookies = cookie.parse(req.headers.cookie);
