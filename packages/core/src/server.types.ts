@@ -52,4 +52,11 @@ export type ResponseType = "raw" | "json" | "jsonp";
 /**
  * Driver middleware type.
  */
-export type DriverMiddleware = (req: any, res: any, next: any, driver: Driver<any, any>) => (void|PromiseLike<void>);
+export interface DriverMiddleware {
+    execute(req: any, res: any, next: (err?: any) => any, driver: Driver<any, any>): (void|PromiseLike<void>);
+}
+
+export type DriverMiddlewareType = (req: any, res: any, next: (err?: any) => any, driver: Driver<any, any>) =>
+    (void|PromiseLike<void>);
+
+export type MiddlewareType = ((req: any, res: any, next: (err?: any) => void) => any);

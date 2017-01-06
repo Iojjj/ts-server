@@ -29,7 +29,7 @@ export interface ParameterDecoratorService<T, O> {
 /**
  * Implementation of service that throws an error if there are multiple same decorators used on single parameter.
  */
-abstract class SingleParameterDecoratorService<T, O> extends AbstractDecoratorService implements ParameterDecoratorService<T, O> {
+export abstract class SingleParameterDecoratorService<T, O> extends AbstractDecoratorService implements ParameterDecoratorService<T, O> {
 
     public define(target: T, methodName: string, index: number, object: O): void {
         const metadataKey = util.format(this.metadataKey, methodName, index);

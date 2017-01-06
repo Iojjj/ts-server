@@ -17,12 +17,8 @@ export class Logger {
         this._logger = logger;
     }
 
-    public log(message: any, ...otherParams: any[]): void {
-        this._logger.log(message, otherParams);
-    }
-
     public d(message: any, ...otherParams: any[]): void {
-        this._logger.debug(message, otherParams);
+        this._logger.log(message, otherParams);
     }
 
     public w(message: any, ...otherParams: any[]): void {
@@ -41,7 +37,6 @@ export class Logger {
 export interface InnerLogger {
 
     log(message?: any, ...otherParams: any[]): void;
-    debug(message?: any, ...otherParams: any[]): void;
     info(message?: any, ...otherParams: any[]): void;
     warn(message?: any, ...otherParams: any[]): void;
     error(message?: any, ...otherParams: any[]): void;

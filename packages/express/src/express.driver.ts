@@ -1,10 +1,10 @@
 import express = require("express");
+import {isArray} from "util";
 import {AbstractDriver} from "../../core/src/server.driver";
 import {ServerDecoratorOptions} from "../../core/src/decorators/server.decorator";
 import {ControllerMetadata} from "../../core/src/decorators/controller.metadata";
+import {Logger} from "../../core/src/utils/logger";
 import {ParamType} from "../../core/src/server.types";
-import {Logger} from "../../core/src/logger";
-import {isArray} from "util";
 
 export class ExpressDriver extends AbstractDriver<express.Application, express.Request> {
 
@@ -37,12 +37,12 @@ export class ExpressDriver extends AbstractDriver<express.Application, express.R
                     this.path(metadata.version),
                     this.path(r.toString())
                 ].join("");
-                Logger.console().log(`registering controller with route "${route}"`);
+                Logger.console().d(`registering controller with route "${route}"`);
                 metadata.httpMethods.forEach(httpMetadata => {
                     (router as any)[httpMetadata.httpMethodName](httpMetadata.route, (req: any, res: any, next: any) => {
-                        httpMetadata.action(req, res, next, this);
+                        httpMetadata.action.execute(req, res, next, this);
                     });
-                    Logger.console().log(`registered route "${httpMetadata.httpMethodName.toUpperCase()} - ${httpMetadata.route}"`);
+                    Logger.console().d(`registered route "${httpMetadata.httpMethodName.toUpperCase()} - ${httpMetadata.route}"`);
                 });
                 this.application.use(route, router);
             });

@@ -3,15 +3,15 @@ import {DecoratorFactory} from "./decorators/decorator.factory";
 import {ServerDecoratorOptions} from "./decorators/server.decorator";
 import {ControllerMetadata, ControllerMetadataImpl} from "./decorators/controller.metadata";
 import {ClassDecoratorService} from "./decorators/decorator.class";
-import * as glob from "glob";
-import * as path from "path";
+import glob = require("glob");
+import path = require("path");
+import {Logger} from "./utils/logger";
 import "reflect-metadata";
-import {Logger} from "./logger";
 
 /**
  * Abstract implementation of server.
  */
-export abstract class Server<T> {
+export abstract class AbstractServer<T> {
 
     private static readonly FORMATS = [".js", ".ts"];
 
@@ -34,7 +34,7 @@ export abstract class Server<T> {
     }
 
     protected onServerStarted(port: number, hostname: string): void {
-        Logger.console().log(`server started at ${hostname}:${port}`);
+        Logger.console().d(`server started at ${hostname}:${port}`);
     }
 
     public start(): void;
@@ -46,11 +46,11 @@ export abstract class Server<T> {
         this.configureServer(this, this._driver);
         this.onAfterInitialization(this.app);
 
-        //this._driver.start(port, hostname, this.onServerStarted);
+        this._driver.start(port, hostname, this.onServerStarted);
     }
 
-    public configureServer<T>(server: Server<T>, driver: Driver<T, any>): void {
-        const options = DecoratorFactory.newServerDecoratorService().get(server.constructor);
+    public configureServer<T>(server: AbstractServer<T>, driver: Driver<T, any>): void {
+        const options = DecoratorFactory.newServerDecoratorService().get(server.constructor) || {};
         const controllers = this.loadControllers(options);
         driver.configureApp(options, controllers);
     }
@@ -81,7 +81,7 @@ export abstract class Server<T> {
         return allFiles
             .filter(file => {
                 const dtsExtension = file.substring(file.length - 5, file.length);
-                return Server.FORMATS.indexOf(path.extname(file)) !== -1 && dtsExtension !== ".d.ts";
+                return AbstractServer.FORMATS.indexOf(path.extname(file)) !== -1 && dtsExtension !== ".d.ts";
             })
             .map(file => require(file))
             .map(exported => exported.default)

@@ -1,34 +1,40 @@
 {
-    "name": "ts-server-core",
-    "version": "0.0.1",
-    "description": "description",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Iojjj/ts-server.git"
-    },
-    "keywords": [
-        "typescript",
-        "express",
-        "koa",
-        "server",
-        "decorators"
-    ],
-    "author": "Alexander Vlasov",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/Iojjj/ts-server/issues"
-    },
-    "homepage": "https://github.com/Iojjj/ts-server#readme",
-    "dependencies": {
-        "glob": "^7.1.1",
-        "reflect-metadata": "^0.1.9"
-    },
-    "devDependencies": {
-        "@types/glob": "^5.0.30",
-        "@types/reflect-metadata": "0.0.5"
-    }
+  "name": "ts-server-core",
+  "version": "0.0.1",
+  "description": "description",
+  "main": "build/index.js",
+  "types": "build/index",
+  "scripts": {
+    "test": "mocha build/test/class.transformer.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Iojjj/ts-server.git"
+  },
+  "keywords": [
+    "typescript",
+    "express",
+    "koa",
+    "server",
+    "decorators"
+  ],
+  "author": "Alexander Vlasov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Iojjj/ts-server/issues"
+  },
+  "homepage": "https://github.com/Iojjj/ts-server#readme",
+  "dependencies": {
+    "class-transformer": "^0.1.3",
+    "glob": "^7.1.1",
+    "reflect-metadata": "^0.1.9"
+  },
+  "devDependencies": {
+    "@types/chai": "^3.4.34",
+    "@types/glob": "^5.0.30",
+    "@types/mocha": "^2.2.35",
+    "@types/reflect-metadata": "0.0.5",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
 }

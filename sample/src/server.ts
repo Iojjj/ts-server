@@ -1,6 +1,6 @@
-import {ExpressServer} from "../../packages/express/src/express.server";
-import {Server} from "../../packages/core/src/decorators/server.decorator";
 import * as path from "path";
+import {Server} from "../../packages/core/src/decorators/server.decorator";
+import {ExpressServer} from "../../packages/express/src/express.server";
 
 @Server({
     routePrefix: "/api",

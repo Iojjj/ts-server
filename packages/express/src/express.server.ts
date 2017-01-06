@@ -1,11 +1,11 @@
 import express = require("express");
-import {Server} from "../../core/src/server";
 import {ExpressDriver} from "./express.driver";
+import {AbstractServer} from "../../core/src/server";
 
 /**
  * Implementation of server based on express.js.
  */
-export abstract class ExpressServer extends Server<express.Application> {
+export abstract class ExpressServer extends AbstractServer<express.Application> {
 
     public constructor();
     public constructor(app: express.Application);
