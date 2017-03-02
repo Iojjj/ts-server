@@ -1,8 +1,8 @@
 import {MainTestModule} from "./main-test.module";
-import {Inject} from "../../framework/src/dependency-injection/decorators/inject/inject.decorator";
+import {Inject} from "../../src/di/decorators/inject/inject.decorator";
 import {Test} from "./test";
-import {Component} from "../../framework/src/dependency-injection/decorators/component/component.decorator";
-import {Named} from "../../framework/src/dependency-injection/decorators/inject/named.decorator";
+import {Component} from "../../src/di/decorators/component/component.decorator";
+import {Named} from "../../src/di/decorators/inject/named.decorator";
 
 @Component(MainTestModule)
 export class MainTest implements Test {

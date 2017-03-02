@@ -1,13 +1,13 @@
 import chai = require("chai");
-import {TypeTransformer} from "../../framework/src/type-transformer/type.transformer";
+import {TypeTransformer} from "../../src/type-transformer/type.transformer";
 import {
     Transform,
     TransformCollection,
     TransformDictionary
-} from "../../framework/src/type-transformer/transform.decorator";
+} from "../../src/type-transformer/transform.decorator";
 import {AbstractTest} from "./abstract.test";
-import {Inject} from "../../framework/src/dependency-injection/decorators/inject/inject.decorator";
-import {Component} from "../../framework/src/dependency-injection/decorators/component/component.decorator";
+import {Inject} from "../../src/di/decorators/inject/inject.decorator";
+import {Component} from "../../src/di/decorators/component/component.decorator";
 import {TestModule} from "./test.module";
 
 @Component(TestModule)

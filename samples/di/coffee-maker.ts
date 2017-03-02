@@ -1,13 +1,13 @@
 import {Heater, ElectricHeater, GasHeater} from "./heater";
 import {Thermosiphon, Siphon} from "./pump";
 import {DripCoffeeModule} from "./drip-coffee.module";
-import {Component} from "../../framework/src/dependency-injection/decorators/component/component.decorator";
-import {Inject} from "../../framework/src/dependency-injection/decorators/inject/inject.decorator";
-import {Named} from "../../framework/src/dependency-injection/decorators/inject/named.decorator";
-import {Lazy} from "../../framework/src/dependency-injection/decorators/inject/lazy.decorator";
+import {Component} from "../../src/di/decorators/component/component.decorator";
+import {Inject} from "../../src/di/decorators/inject/inject.decorator";
+import {Named} from "../../src/di/decorators/inject/named.decorator";
+import {Lazy} from "../../src/di/decorators/inject/lazy.decorator";
 
 @Component(DripCoffeeModule)
-export class CoffeeMaker {
+export abstract class CoffeeMaker {
 
     @Inject() @Named("gas heater")
     public heater: Heater = new ElectricHeater();

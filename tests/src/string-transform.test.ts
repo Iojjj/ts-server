@@ -1,7 +1,7 @@
-import {TypeTransformer} from "../../framework/src/type-transformer/type.transformer";
-import {Component} from "../../framework/src/dependency-injection/decorators/component/component.decorator";
+import {TypeTransformer} from "../../src/type-transformer/type.transformer";
+import {Component} from "../../src/di/decorators/component/component.decorator";
 import {AbstractTest} from "./abstract.test";
-import {Inject} from "../../framework/src/dependency-injection/decorators/inject/inject.decorator";
+import {Inject} from "../../src/di/decorators/inject/inject.decorator";
 import {TestModule} from "./test.module";
 import chai = require("chai");
 

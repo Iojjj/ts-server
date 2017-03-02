@@ -1,4 +1,4 @@
-import {TypeTransformer} from "../../framework/src/type-transformer/type.transformer";
+import {TypeTransformer} from "../../src/type-transformer/type.transformer";
 import {Test} from "./test";
 
 export abstract class AbstractTest implements Test {

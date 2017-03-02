@@ -1,5 +1,5 @@
-import {Module} from "../../framework/src/dependency-injection/decorators/module/module.decorator";
-import {Provides} from "../../framework/src/dependency-injection/decorators/module/provides.decorator";
+import {Module} from "../../src/di/decorators/module/module.decorator";
+import {Provides} from "../../src/di/decorators/module/provides.decorator";
 
 @Module()
 export class SecondModule {

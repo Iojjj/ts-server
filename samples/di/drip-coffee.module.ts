@@ -1,8 +1,8 @@
 import {Siphon, Thermosiphon} from "./pump";
 import {Heater, ElectricHeater, GasHeater} from "./heater";
-import {Module} from "../../framework/src/dependency-injection/decorators/module/module.decorator";
-import {Provides} from "../../framework/src/dependency-injection/decorators/module/provides.decorator";
-import {Singleton} from "../../framework/src/dependency-injection/decorators/module/singleton.decorator";
+import {Module} from "../../src/di/decorators/module/module.decorator";
+import {Provides} from "../../src/di/decorators/module/provides.decorator";
+import {Singleton} from "../../src/di/decorators/module/singleton.decorator";
 
 @Module()
 export class DripCoffeeModule {
