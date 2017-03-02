@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "target": "es5",
+        "outDir": "build",
+        "sourceMap": true,
+        "strictNullChecks": true,
+        "allowUnreachableCode": false,
+        "noImplicitThis": false,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "removeComments": true,
+        "noUnusedLocals": false,
+        "noImplicitReturns": true,
+        "noImplicitAny": true,
+        "forceConsistentCasingInFileNames": true,
+        "diagnostics": true,
+        "pretty": true,
+        "stripInternal": true,
+        "typeRoots": [ "node_modules/@types" ],
+        "lib": ["es6", "dom"]
+    }
+}
