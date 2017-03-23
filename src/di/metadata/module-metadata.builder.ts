@@ -1,5 +1,5 @@
+import {MetadataBuilder} from "../../decorator-utils/metadata/abs.metadata.builder";
 import {ModuleMetadata} from "./module-metadata.bean";
-import {MetadataBuilder} from "../../decorators/metadata/metadata.builder";
 import {ProvidesMetadata} from "./provides-metadata.bean";
 
 /**
@@ -26,7 +26,7 @@ export class ModuleMetadataBuilder extends MetadataBuilder<ModuleMetadataBuilder
     }
 
     public get providers(): ProvidesMetadata[] {
-        return this._providers;
+        return this._providers || [];
     }
 
     protected getThis(): ModuleMetadataBuilder {

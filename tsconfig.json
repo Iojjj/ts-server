@@ -19,6 +19,7 @@
         "pretty": true,
         "stripInternal": true,
         "typeRoots": [ "node_modules/@types" ],
-        "lib": ["es6", "dom"]
-    }
+        "lib": ["es6"]
+    },
+    "exclude": ["node_modules"]
 }

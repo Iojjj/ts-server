@@ -1,18 +1,21 @@
+import {MethodMetadata} from "../../decorator-utils/metadata/abs.method-metadata.bean";
+import {CreatableType} from "../../decorator-utils/types/creatable.type";
 import {ProvidesMetadataBuilder} from "./provides-metadata.builder";
-import {AbsMethodMetadata} from "../../decorators/metadata/method/abs.method-metadata.bean";
-import {AnyType} from "../../decorators/type";
 
-export class ProvidesMetadata extends AbsMethodMetadata<ProvidesMetadataBuilder> {
+/**
+ * Metadata for {@link Provides} decorator.
+ */
+export class ProvidesMetadata extends MethodMetadata<ProvidesMetadataBuilder> {
 
-    public readonly type: AnyType;
-    public readonly qualifierName: string;
-    public readonly method: Function;
+    public readonly type: CreatableType;
+    public readonly qualifier: string | CreatableType;
+    public readonly method?: Function;
     public readonly isSingleton: boolean;
 
     constructor(builder: ProvidesMetadataBuilder) {
         super(builder);
         this.type = builder.type;
-        this.qualifierName = builder.qualifierName;
+        this.qualifier = builder.qualifier;
         this.method = builder.method;
         this.isSingleton = builder.isSingleton;
     }

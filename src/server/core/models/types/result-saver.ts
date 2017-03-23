@@ -1,0 +1,1 @@
+export type ResultSaver = (result: any, ...args: any[]) => void;

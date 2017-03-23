@@ -1,26 +1,40 @@
+import {PropertyMetadataBuilder} from "../../decorator-utils/metadata/abs.property-metadata.builder";
+import {CreatableType} from "../../decorator-utils/types/creatable.type";
 import {InjectPropertyMetadata} from "./inject-property-metadata.bean";
-import {AbsPropertyMetadataBuilder} from "../../decorators/metadata/property/abs.property-metadata.builder";
-import {RosePropertyData} from "../models/property-data.bean";
 
-export class InjectPropertyMetadataBuilder extends
-    AbsPropertyMetadataBuilder<InjectPropertyMetadataBuilder, InjectPropertyMetadata> {
+/**
+ * Builder for metadata of injectable properties.
+ */
+export class InjectPropertyMetadataBuilder
+    extends PropertyMetadataBuilder<InjectPropertyMetadataBuilder, InjectPropertyMetadata> {
 
-    private _propertyData: RosePropertyData;
+    private _qualifier: string | CreatableType;
+    private _isLazy: boolean = false;
 
     constructor(metadata?: InjectPropertyMetadata) {
         super(metadata);
         if (!!metadata) {
-            this._propertyData = metadata.propertyData;
+            this._qualifier = metadata.qualifier;
+            this._isLazy = metadata.isLazy;
         }
     }
-    
-    public setPropertyData(val: RosePropertyData): InjectPropertyMetadataBuilder {
-        this._propertyData = val;
+
+    public setQualifier(val: string | CreatableType): InjectPropertyMetadataBuilder {
+        this._qualifier = val;
         return this;
     }
 
-    public get propertyData(): RosePropertyData {
-        return this._propertyData;
+    public setLazy(val: boolean): InjectPropertyMetadataBuilder {
+        this._isLazy = val;
+        return this;
+    }
+
+    public get qualifier(): string | CreatableType {
+        return this._qualifier || "";
+    }
+
+    public get isLazy(): boolean {
+        return this._isLazy || false;
     }
 
     protected getThis(): InjectPropertyMetadataBuilder {

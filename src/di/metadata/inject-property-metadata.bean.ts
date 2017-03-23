@@ -1,14 +1,19 @@
-import {RosePropertyData} from "../models/property-data.bean";
+import {PropertyMetadata} from "../../decorator-utils/metadata/abs.property-metadata.bean";
+import {CreatableType} from "../../decorator-utils/types/creatable.type";
 import {InjectPropertyMetadataBuilder} from "./inject-property-metadata.builder";
-import {AbsPropertyMetadata} from "../../decorators/metadata/property/abs.property-metadata.bean";
 
-export class InjectPropertyMetadata extends AbsPropertyMetadata<InjectPropertyMetadataBuilder> {
+/**
+ * Metadata for {@link Inject} decorator.
+ */
+export class InjectPropertyMetadata extends PropertyMetadata<InjectPropertyMetadataBuilder> {
 
-    public readonly propertyData: RosePropertyData;
+    public readonly qualifier: string | CreatableType;
+    public readonly isLazy: boolean = false;
 
     constructor(builder: InjectPropertyMetadataBuilder) {
         super(builder);
-        this.propertyData = builder.propertyData;
+        this.qualifier = builder.qualifier;
+        this.isLazy = builder.isLazy;
     }
 
     public newBuilder(): InjectPropertyMetadataBuilder {

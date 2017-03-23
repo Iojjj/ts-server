@@ -1,31 +1,34 @@
+import {MethodMetadataBuilder} from "../../decorator-utils/metadata/abs.method-metadata.builder";
+import {CreatableType} from "../../decorator-utils/types/creatable.type";
 import {ProvidesMetadata} from "./provides-metadata.bean";
-import {AbsMethodMetadataBuilder} from "../../decorators/metadata/method/abs.method-metadata.builder";
-import {AnyType} from "../../decorators/type";
 
-export class ProvidesMetadataBuilder extends AbsMethodMetadataBuilder<ProvidesMetadataBuilder, ProvidesMetadata> {
+/**
+ * Builder for a provider metadata.
+ */
+export class ProvidesMetadataBuilder extends MethodMetadataBuilder<ProvidesMetadataBuilder, ProvidesMetadata> {
 
-    private _type: AnyType;
-    private _qualifierName: string;
-    private _method: Function;
+    private _type: CreatableType;
+    private _qualifier: string | CreatableType;
+    private _method?: Function;
     private _isSingleton: boolean;
 
     constructor(metadata?: ProvidesMetadata) {
         super(metadata);
         if (!!metadata) {
             this._type = metadata.type;
-            this._qualifierName = metadata.qualifierName;
+            this._qualifier = metadata.qualifier;
             this._method = metadata.method;
             this._isSingleton = metadata.isSingleton;
         }
     }
 
-    public setType(val: AnyType): ProvidesMetadataBuilder {
+    public setType(val: CreatableType): ProvidesMetadataBuilder {
         this._type = val;
         return this;
     }
 
-    public setQualifierName(val: string): ProvidesMetadataBuilder {
-        this._qualifierName = val;
+    public setQualifier(val: string | CreatableType): ProvidesMetadataBuilder {
+        this._qualifier = val;
         return this;
     }
 
@@ -39,20 +42,20 @@ export class ProvidesMetadataBuilder extends AbsMethodMetadataBuilder<ProvidesMe
         return this;
     }
 
-    public get type(): AnyType {
-        return this._type;
+    public get type(): CreatableType {
+        return this._type || Object;
     }
 
-    public get qualifierName(): string {
-        return this._qualifierName;
+    public get qualifier(): string | CreatableType {
+        return this._qualifier;
     }
 
-    public get method(): Function {
+    public get method(): Function | undefined {
         return this._method;
     }
 
     public get isSingleton(): boolean {
-        return this._isSingleton;
+        return this._isSingleton || false;
     }
 
     protected getThis(): ProvidesMetadataBuilder {

@@ -1,6 +1,5 @@
-import {Metadata} from "../../decorators/metadata/metadata";
+import {Metadata} from "../../decorator-utils/metadata/abs.metadata.bean";
 import {ModuleMetadataBuilder} from "./module-metadata.builder";
-import {PropertyMetadata} from "../../decorators/metadata/property/property-metadata.bean";
 import {ProvidesMetadata} from "./provides-metadata.bean";
 
 /**
@@ -10,13 +9,13 @@ export class ModuleMetadata extends Metadata<ModuleMetadataBuilder> {
 
     /**
      * List of providers of this module.
-     * @return {PropertyMetadata[]} list of providers
+     * @return {ProvidesMetadata[]} list of providers
      */
     public readonly providers: ProvidesMetadata[];
 
     constructor(builder: ModuleMetadataBuilder) {
         super(builder);
-        this.providers = builder.providers ? Array.from(builder.providers) : [];
+        this.providers = builder.providers;
     }
 
     public newBuilder(): ModuleMetadataBuilder {

@@ -1,5 +1,5 @@
-import {Module} from "../../src/di/decorators/module/module.decorator";
-import {Provides} from "../../src/di/decorators/module/provides.decorator";
+import {Module} from "../../src/di/decorators/class.module.decorator";
+import {Provides} from "../../src/di/decorators/method.provides.decorator";
 
 @Module()
 export class SecondModule {
