@@ -1,18 +1,20 @@
-import {C4} from "./inheritence";
-import {C5} from "./inheritance.c4";
-import {CoffeeMaker} from "./coffee-maker";
+import {AmericanoCoffeeMaker} from "./models/coffee-makers/americano.coffee-maker";
+import {SingletonCoffeeMaker} from "./models/coffee-makers/singleton.coffee-maker";
+import {CappuccinoCoffeeMaker} from "./models/coffee-makers/cappuccino.coffee-maker";
+import {CoffeeMaker} from "./models/coffee-makers/abs.coffee-maker";
 
-const coffeeMaker = new CoffeeMaker();
-coffeeMaker.brew();
+const makers = [
+    new AmericanoCoffeeMaker(),
+    new CappuccinoCoffeeMaker(),
+    new SingletonCoffeeMaker(),
+];
 
-const c4 = new C4();
-console.log(c4.s1);
-console.log(c4.s2);
-console.log(c4.s3);
-console.log(c4.s4);
+makeCoffee(makers);
 
-const c5 = new C5();
-console.log(c5.c2Provider);
-for (let i = 0; i < 10; i++) {
-    console.log(c5.c2Provider.get().counter);
+async function makeCoffee(makers: CoffeeMaker[]) {
+    let maker: CoffeeMaker|undefined;
+    while (!!(maker = makers.shift())) {
+        const cupOfCoffee = await maker.brew();
+        console.log(cupOfCoffee.toString());
+    }
 }

@@ -1,9 +1,9 @@
-import {DecoratorUtils} from "../internal/decorator.utils";
+import {DecoratorUtils} from "../utils/decorator.utils";
 
 /**
  * Decorator that allows to inject dependencies.
  */
-export function Inject(): PropertyDecorator {
+export function Inject(qualifier?: string | number | symbol): PropertyDecorator {
     return function (target: Object, propertyName: string, index?: number) {
         if (typeof index === "number") {
             if (typeof target === "function" && !propertyName) {
@@ -16,7 +16,8 @@ export function Inject(): PropertyDecorator {
         DecoratorUtils.updatePropertyMetadata(target, propertyName, metadata => {
             let returnType = Reflect.getMetadata("design:type", target, propertyName) as any;
             return metadata.newBuilder()
-                .setType(returnType)
+                .setType(DecoratorUtils.unwrapType(returnType))
+                .setQualifier(qualifier ? DecoratorUtils.getQualifier(target, propertyName, qualifier) : undefined)
                 .build();
         });
     };

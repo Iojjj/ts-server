@@ -1,4 +1,4 @@
-import {DecoratorUtils} from "../internal/decorator.utils";
+import {DecoratorUtils} from "../utils/decorator.utils";
 
 /**
  * Decorator for classes that want some of the dependencies to be injected.
@@ -8,6 +8,6 @@ import {DecoratorUtils} from "../internal/decorator.utils";
 export function Component(firstModule: Function, ...modules: Function[]): ClassDecorator {
     return function (target: Function) {
         modules = [firstModule, ...modules];
-        DecoratorUtils.defineInjector(target, modules);
+        return DecoratorUtils.decorateComponent(target, modules);
     };
 }

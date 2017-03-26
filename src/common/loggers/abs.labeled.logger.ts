@@ -1,6 +1,5 @@
 import {Component} from "../../di/decorators/class.component.decorator";
 import {Inject} from "../../di/decorators/prop.inject.decorator";
-import {Named} from "../../di/decorators/prop.named.decorator";
 import {Provider} from "../../di/models/abs.provider";
 import {Logger} from "./abs.logger";
 import {LoggerModule} from "./internal/logger.module";
@@ -11,7 +10,7 @@ import {LoggerModule} from "./internal/logger.module";
 @Component(LoggerModule)
 export abstract class LabeledLogger extends Logger {
 
-    @Inject() @Named(Date)
+    @Inject("labeled-logger.date")
     private readonly _dateProvider: Provider<Date>;
 
     private readonly _label: string;

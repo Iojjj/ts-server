@@ -1,4 +1,4 @@
-import {DecoratorUtils} from "../internal/decorator.utils";
+import {DecoratorUtils} from "../utils/decorator.utils";
 
 /**
  * Decorator for class that represents a module and provides some dependency injections.

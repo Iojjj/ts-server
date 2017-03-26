@@ -1,7 +1,6 @@
 import e = require("express");
 import {Component} from "../../di/decorators/class.component.decorator";
 import {Inject} from "../../di/decorators/prop.inject.decorator";
-import {Named} from "../../di/decorators/prop.named.decorator";
 import {RouterAdapter} from "../../server/core/models/base/abs.router.adapter";
 import {MethodType} from "../../server/core/models/types/method-type";
 import {Route} from "../../server/core/models/types/route.type";
@@ -13,7 +12,7 @@ import {ExpressConverter} from "./express.converter";
 @Component(ExpressRouterModule, SharedModule)
 export class ExpressRouterAdapter extends RouterAdapter {
 
-    @Inject() @Named("express.router")
+    @Inject("express.router")
     private _router: e.Router & Record<string, e.IRouterHandler<any> & e.IRouterMatcher<any>>;
 
     @Inject()

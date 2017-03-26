@@ -253,6 +253,7 @@ export class DecoratorUtils {
         let methodMetadata = methodsMetadata
             .reduce((a, s) => a.concat(s), [])
             .filter(m => !!m)
+            .reverse() // reverse to handle routes from child class first and then inherited ones
             .map(m => {
                 // set response type to routes
                 const routes = m.routes;

@@ -8,7 +8,7 @@ import {Provides} from "../../../di/decorators/method.provides.decorator";
 export class LoggerModule {
 
     //noinspection JSUnusedGlobalSymbols
-    @Provides()
+    @Provides("labeled-logger.date")
     public static provideDate(): Date {
         return new Date();
     }

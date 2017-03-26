@@ -1,7 +1,6 @@
 import express = require("express");
 import {Component} from "../../di/decorators/class.component.decorator";
 import {Inject} from "../../di/decorators/prop.inject.decorator";
-import {Named} from "../../di/decorators/prop.named.decorator";
 import {SimpleMiddleware} from "../../server/core/models/base/abs.middleware";
 import {Server} from "../../server/core/models/base/abs.server";
 import {AcceptsMiddlewareProvider} from "../../server/core/models/types/accepts-middleware-provider.type";
@@ -19,10 +18,10 @@ export abstract class ExpressServer extends Server {
     @Inject()
     private driver: ExpressDriver;
 
-    @Inject() @Named("middlewares")
+    @Inject("middlewares")
     private middlewares: SimpleMiddleware[];
 
-    @Inject() @Named("response-handler.middlewares")
+    @Inject("response-handler.middlewares")
     private responseHandlers: SimpleMiddleware[];
 
     protected provideDriver(): ExpressDriver {

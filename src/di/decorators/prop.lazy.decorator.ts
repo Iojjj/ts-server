@@ -1,4 +1,4 @@
-import {DecoratorUtils} from "../internal/decorator.utils";
+import {DecoratorUtils} from "../utils/decorator.utils";
 
 /**
  * Decorator that modifies property only when it's accessed first time.

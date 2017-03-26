@@ -3,14 +3,13 @@ import {ServerModule} from "./server.module";
 import {ExpressServer} from "../../src/server-express/models/express.server";
 import {Component} from "../../src/di/decorators/class.component.decorator";
 import {Inject} from "../../src/di/decorators/prop.inject.decorator";
-import {Named} from "../../src/di/decorators/prop.named.decorator";
 import {ServerOptions} from "../../src/server/core/models/options/server-options";
 import {SimpleMiddleware} from "../../src/server/core/models/base/abs.middleware";
 
 @Component(ServerModule)
 export class SampleServer extends ExpressServer {
 
-    @Inject() @Named("controllers")
+    @Inject("controllers")
     private sampleControllers: any[];
 
     protected provideOptions(): ServerOptions {

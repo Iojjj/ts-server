@@ -1,14 +1,12 @@
-import {StaticMethodDecorator} from "../../decorator-utils/types/decorator-types";
-import {DecoratorUtils} from "../internal/decorator.utils";
+import {Constants} from "../internal/constants";
+import {decorateScope} from "./scope.decorator";
 
 /**
  * Decorator that modifies provider so it will create only a single instance of dependency.
  */
-export function Singleton(): StaticMethodDecorator {
+export function Singleton() {
 
-    return function (target: Function, methodName: string) {
-        DecoratorUtils.updateProviderMetadata(target, methodName, metadata => metadata.newBuilder()
-            .setSingleton(true)
-            .build());
+    return function (target: Function, methodName?: string) {
+        decorateScope(Constants.SINGLETON_SCOPE, target, methodName);
     };
 }

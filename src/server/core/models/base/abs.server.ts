@@ -1,7 +1,6 @@
 import {Logger} from "../../../../common/loggers/abs.logger";
 import {Component} from "../../../../di/decorators/class.component.decorator";
 import {Inject} from "../../../../di/decorators/prop.inject.decorator";
-import {Named} from "../../../../di/decorators/prop.named.decorator";
 import {ControllerMetadata} from "../../../decorators/internal/metadata/controller-metadata.bean";
 import {DecoratorUtils} from "../../../decorators/internal/utils/decorator.utils";
 import {MethodMetadata} from "../../../decorators/internal/metadata/method-metadata.bean";
@@ -42,10 +41,10 @@ export abstract class Server {
     @Inject()
     private readonly _routeUtils: RouteUtils;
 
-    @Inject() @Named("def.auth-handler.middleware")
+    @Inject("def.auth-handler.middleware")
     private readonly _defAuthHandlerMiddleware: SimpleMiddleware;
 
-    @Inject() @Named("def.response-handler.middleware")
+    @Inject("def.response-handler.middleware")
     private readonly _defRespHandlerMiddleware: SimpleMiddleware;
 
     private readonly _options: ServerOptions;
@@ -192,23 +191,23 @@ export abstract class Server {
     private registerController(controller: Object, metadata: ControllerMetadata,
                                uniqueVersions: Set<Route>,
                                globalMiddlewares: SimpleMiddleware[]) {
-        metadata.methodMetadata
-            .forEach(methodMetadata => {
-                const router = this._driver.newRouter();
-                let allowedVersions: Set<Route>;
-                if (metadata.version === Server.ANY_VERSION) {
-                    allowedVersions = uniqueVersions;
-                } else {
-                    allowedVersions = new Set([metadata.version]);
-                }
-                // register router for all allowed versions
-                allowedVersions.forEach(v => {
-                    const route = this._routeUtils.constructRoute(v, metadata.route);
-                    this._logger.i("--- controller ---", route);
+        let allowedVersions: Set<Route>;
+        if (metadata.version === Server.ANY_VERSION) {
+            allowedVersions = uniqueVersions;
+        } else {
+            allowedVersions = new Set([metadata.version]);
+        }
+        // register router for all allowed versions
+        allowedVersions.forEach(v => {
+            const route = this._routeUtils.constructRoute(v, metadata.route);
+            this._logger.i("--- controller ---", route);
+            metadata.methodMetadata
+                .forEach(methodMetadata => {
+                    const router = this._driver.newRouter();
                     this._driver.registerRouter(route, router);
+                    this.registerSubRoutes(controller, router, methodMetadata, globalMiddlewares);
                 });
-                this.registerSubRoutes(controller, router, methodMetadata, globalMiddlewares);
-            });
+        });
     }
 
     private registerSubRoutes(controller: Object, router: RouterAdapter, metadata: MethodMetadata,

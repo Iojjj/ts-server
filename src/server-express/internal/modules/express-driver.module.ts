@@ -16,7 +16,7 @@ export class ExpressDriverModule {
     }
 
     //noinspection JSUnusedGlobalSymbols
-    @Provides()
+    @Provides("adapter")
     public static provideRouterAdapter(): ExpressRouterAdapter {
         return new ExpressRouterAdapter();
     }

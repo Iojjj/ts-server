@@ -1,6 +1,5 @@
 import {Component} from "../../di/decorators/class.component.decorator";
 import {Inject} from "../../di/decorators/prop.inject.decorator";
-import {Named} from "../../di/decorators/prop.named.decorator";
 import {Provider} from "../../di/models/abs.provider";
 import {Driver} from "../../server/core/models/base/abs.driver";
 import {SimpleMiddleware} from "../../server/core/models/base/abs.middleware";
@@ -17,10 +16,10 @@ import e = require("express");
 @Component(ExpressDriverModule, SharedModule)
 export class ExpressDriver extends Driver {
 
-    @Inject() @Named("express.app")
+    @Inject("express.app")
     private app: e.Application;
 
-    @Inject() @Named(ExpressRouterAdapter)
+    @Inject("adapter")
     private routerProvider: Provider<ExpressRouterAdapter>;
 
     @Inject()
