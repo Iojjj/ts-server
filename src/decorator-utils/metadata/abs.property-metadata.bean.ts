@@ -1,4 +1,3 @@
-import {CreatableType} from "../types/creatable.type";
 import {Metadata} from "./abs.metadata.bean";
 import {PropertyMetadataBuilder} from "./abs.property-metadata.builder";
 
@@ -17,7 +16,7 @@ export abstract class PropertyMetadata<B extends PropertyMetadataBuilder<B, Prop
     /**
      * Type of property.
      */
-    public readonly type: CreatableType;
+    public readonly type: Function;
 
     constructor(builder: B) {
         super(builder);

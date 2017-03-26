@@ -1,15 +1,14 @@
-import {Injector} from "./abs.injector";
-import {CreatableType} from "../../../../decorator-utils/types/creatable.type";
-import {ProvidesMetadata} from "../../metadata/provides-metadata.bean";
-import {InjectPropertyMetadata} from "../../metadata/inject-property-metadata.bean";
 import {Provider} from "../../../models/abs.provider";
+import {InjectPropertyMetadata} from "../../metadata/inject-property-metadata.bean";
+import {ProvidesMetadata} from "../../metadata/provides-metadata.bean";
+import {Injector} from "./abs.injector";
 
 export abstract class ProvidersInjector<T> extends Injector {
 
-    private readonly byTypes: Map<CreatableType, T>;
+    private readonly byTypes: Map<Function, T>;
     private readonly byQualifiers: Map<symbol, T>;
 
-    private readonly registeredTypes: Set<CreatableType>;
+    private readonly registeredTypes: Set<Function>;
     private readonly registeredQualifiers: Set<symbol>;
 
     constructor() {
@@ -52,7 +51,7 @@ export abstract class ProvidersInjector<T> extends Injector {
         return !!type && this.byTypes.has(type) || !!qualifier && this.byQualifiers.has(qualifier);
     }
 
-    protected getProvider(metadata: InjectPropertyMetadata): T|undefined {
+    protected getProvider(metadata: InjectPropertyMetadata): T | undefined {
         const qualifier = metadata.qualifier;
         const type = metadata.type;
         if (!type && !qualifier) {

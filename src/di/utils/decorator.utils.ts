@@ -8,7 +8,6 @@ import {ProvidesMetadataBuilder} from "../internal/metadata/provides-metadata.bu
 import {Injector} from "../internal/models/injectors/abs.injector";
 import {ComponentInjector} from "../internal/models/injectors/component-injector";
 import {PropertyInjector} from "../internal/models/injectors/property.injector";
-import {CreatableType} from "../../decorator-utils/types/creatable.type";
 
 /**
  * Utils that helps to decorate classes, methods and properties.
@@ -88,13 +87,18 @@ export class DecoratorUtils {
      */
     public static decorateComponent(target: Function, modules: Function[]): Function {
         const proto = target.prototype;
-        const original = proto.constructor;
         //noinspection TsLint
         const __constructor__ = function (...args: any[]) {
             DecoratorUtils.onComponentCreated(target, this, modules);
-            return original.apply(this, args);
+            return target.apply(this, args);
         };
         __constructor__.prototype = proto;
+        // TODO: is there any better solution?
+        // we must copy all static variables
+        const anyConstructor = __constructor__ as any;
+        const anyTarget = target as any;
+        Object.keys(target)
+            .forEach(key => anyConstructor[key] = anyTarget[key]);
         return __constructor__;
     }
 
@@ -220,7 +224,7 @@ export class DecoratorUtils {
         return injector;
     }
 
-    public static unwrapType(type: CreatableType): CreatableType {
+    public static unwrapType(type: Function): Function {
         if (type.name === DecoratorUtils.CONSTRUCTOR) {
             return DecoratorUtils.unwrapType(type.prototype.constructor);
         }

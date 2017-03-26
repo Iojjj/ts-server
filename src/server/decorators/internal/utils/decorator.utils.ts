@@ -19,6 +19,7 @@ import {ParameterDataBuilder} from "../metadata/parameters-metadata.builder";
 import {ResponseHandlerMetadata} from "../metadata/response-handler-metadata.bean";
 import {ResponseHandlerMetadataBuilder} from "../metadata/response-handler-metadata.builder";
 import {RouteConfigurationBuilder} from "../metadata/route-configuration.builder";
+import {DecoratorUtils as DI_DecoratorUtils} from "../../../../di/utils/decorator.utils";
 
 /**
  * @internal
@@ -215,8 +216,7 @@ export class DecoratorUtils {
      */
     private static isMiddlewareInternal(instance: Object, metadataKey: string): boolean {
         const proto = instance.constructor;
-        const metadata = Reflect
-            .getMetadata(metadataKey, proto) as MiddlewareMetadata | undefined;
+        const metadata = Reflect.getMetadata(metadataKey, proto) as MiddlewareMetadata | undefined;
         return !!metadata;
     }
 
@@ -245,52 +245,50 @@ export class DecoratorUtils {
             if (!!prototype) {
                 const array = Object
                     .keys(prototype)
-                    .map(key => Reflect.getMetadata(DecoratorUtils.METADATA_METHOD, prototype, key) as MethodMetadata);
+                    .map(key => Reflect.getMetadata(DecoratorUtils.METADATA_METHOD, prototype, key) as MethodMetadata)
+                    .filter(m => !!m);
                 methodsMetadata.push(array);
             }
             original = Object.getPrototypeOf(original);
         } while (!!original);
-        let methodMetadata = methodsMetadata
-            .reduce((a, s) => a.concat(s), [])
-            .filter(m => !!m)
-            .reverse() // reverse to handle routes from child class first and then inherited ones
-            .map(m => {
-                // set response type to routes
-                const routes = m.routes;
-                const builder = m.newBuilder()
-                    .clearRouteConfigurations();
-                routes.forEach(r => {
-                    const newRoute = r.newBuilder()
-                        .setResponseType(r.responseType ? r.responseType : responseType)
-                        .build();
-                    builder.addRouteConfiguration(newRoute);
-                });
-                return builder.build();
-            });
         let type = "";
         if (responseType === ResponseType.JSON) {
             type = "application/json";
         } else if (responseType === ResponseType.ANY) {
             type = "*/*";
         }
-        if (!!type) {
-            methodMetadata = methodMetadata.map(m => {
-                if (m.acceptsTypes.length === 0) {
-                    m = m.newBuilder()
-                        .setAcceptsTypes([type])
-                        .build();
-                }
-                return m;
-            });
-        }
+        const map: Map<string, MethodMetadata> = new Map();
+        methodsMetadata.forEach(array => array.forEach(m => {
+            m = DecoratorUtils.updateRouteConfiguration(m, responseType);
+            if (!!type && m.acceptsTypes.length === 0) {
+                m = m.newBuilder()
+                    .setAcceptsTypes([type])
+                    .build();
+            }
+            return map.set(m.methodName, m);
+        }));
         const metadata = new ControllerMetadataBuilder()
             .setTargetName(target.name)
             .setVersion(version)
             .setResponseType(responseType)
             .setRoute(route)
-            .setMethodMetadata(methodMetadata)
+            .setMethodMetadata(map)
             .build();
         Reflect.defineMetadata(DecoratorUtils.METADATA_CONTROLLER, metadata, target);
+    }
+
+    private static updateRouteConfiguration(m: MethodMetadata, responseType: ResponseType): MethodMetadata {
+        // set response type to routes
+        const routes = m.routes;
+        const builder = m.newBuilder()
+            .clearRouteConfigurations();
+        routes.forEach(r => {
+            const newRoute = r.newBuilder()
+                .setResponseType(r.responseType ? r.responseType : responseType)
+                .build();
+            builder.addRouteConfiguration(newRoute);
+        });
+        return builder.build();
     }
 
     /**
@@ -382,6 +380,7 @@ export class DecoratorUtils {
      * @param target any class
      */
     public static checkIfMiddlewareAndThrow(target: Function): void {
+        target = DI_DecoratorUtils.unwrapType(target);
         let isMiddleware = target.prototype instanceof SimpleMiddleware;
         if (!isMiddleware) {
             throw new Error(`${target.name} must inherit ${SimpleMiddleware.name} class.`);
@@ -393,7 +392,7 @@ export class DecoratorUtils {
                                          builderCreator: () => MiddlewareMetadataBuilder,
                                          methodName: string,
                                          updateMetadata?: (metadata: MiddlewareMetadata) => MiddlewareMetadata): void {
-
+        target = DI_DecoratorUtils.unwrapType(target);
         const proto = target.prototype;
         const methodMetadata = Object
             .keys(proto)

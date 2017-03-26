@@ -35,7 +35,7 @@ export class PropertyInjector implements PropertyDescriptor {
     }
 
     public set(v: any): void {
-        throw new Error("You can't rewrite an injected property.");
+        this._val = v;
     }
 
     public updateScope(scope: symbol): void {

@@ -12,15 +12,18 @@ export class ControllerMetadataBuilder extends MetadataBuilder<ControllerMetadat
     private _version: string;
     private _route: Route;
     private _responseType: ResponseType;
-    private readonly _methodMetadata: MethodMetadata[] = [];
+    private readonly _methodMetadata: Map<string, MethodMetadata>;
 
     constructor(metadata?: ControllerMetadata) {
         super(metadata);
+        this._methodMetadata = new Map();
         if (!!metadata) {
             this._version = metadata.version;
             this._route = metadata.route;
             this._responseType = metadata.responseType;
-            this._methodMetadata = metadata.methodMetadata ? Array.from(metadata.methodMetadata) : [];
+            if (!!metadata.methodMetadata) {
+                this.copyMap(metadata.methodMetadata, this._methodMetadata);
+            }
         }
     }
 
@@ -39,9 +42,8 @@ export class ControllerMetadataBuilder extends MetadataBuilder<ControllerMetadat
         return this;
     }
 
-    public setMethodMetadata(val: MethodMetadata[]): ControllerMetadataBuilder {
-        this._methodMetadata.splice(0);
-        val.forEach(m => this._methodMetadata.push(m));
+    public setMethodMetadata(val: Map<string, MethodMetadata>): ControllerMetadataBuilder {
+        this.copyMap(val, this._methodMetadata);
         return this;
     }
 
@@ -57,8 +59,15 @@ export class ControllerMetadataBuilder extends MetadataBuilder<ControllerMetadat
         return this._responseType || ResponseType.RAW;
     }
 
-    public get methodMetadata(): MethodMetadata[] {
-        return this._methodMetadata || [];
+    public get methodMetadata(): Map<string, MethodMetadata> {
+        return this.copyMap(this._methodMetadata);
+    }
+
+    private copyMap(map: Map<string, MethodMetadata>,
+                    toMap: Map<string, MethodMetadata> = new Map()): Map<string, MethodMetadata> {
+        toMap.clear();
+        map.forEach((v, k) => toMap.set(k, v));
+        return toMap;
     }
 
     protected getThis(): ControllerMetadataBuilder {

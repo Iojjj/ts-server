@@ -9,7 +9,7 @@ import {Get} from "../../src/server/decorators/get.decorator";
 export class Controller2 extends Controller1 {
 
     @Get()
-    public getId(): void {
+    public async getById(): Promise<any> {
 
     }
 }

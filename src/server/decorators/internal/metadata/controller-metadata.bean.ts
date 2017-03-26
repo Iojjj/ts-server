@@ -12,7 +12,7 @@ export class ControllerMetadata extends Metadata<ControllerMetadataBuilder> {
     public readonly version: string;
     public readonly route: Route;
     public readonly responseType: ResponseType;
-    public readonly methodMetadata: MethodMetadata[];
+    public readonly methodMetadata: Map<string, MethodMetadata>;
 
     constructor(builder: ControllerMetadataBuilder) {
         super(builder);

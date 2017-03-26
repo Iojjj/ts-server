@@ -1,4 +1,3 @@
-import {CreatableType} from "../types/creatable.type";
 import {MetadataBuilder} from "./abs.metadata.builder";
 import {PropertyMetadata} from "./abs.property-metadata.bean";
 
@@ -11,7 +10,7 @@ export abstract class PropertyMetadataBuilder<B extends PropertyMetadataBuilder<
     extends MetadataBuilder<B, M> {
 
     private _propertyName: string;
-    private _type: CreatableType;
+    private _type: Function;
 
     constructor(metadata?: M) {
         super(metadata);
@@ -38,7 +37,7 @@ export abstract class PropertyMetadataBuilder<B extends PropertyMetadataBuilder<
      * @param val type of property
      * @return {B} instance of current builder
      */
-    public setType(val: CreatableType): B {
+    public setType(val: Function): B {
         this._type = val;
         return this.getThis();
     }
@@ -53,7 +52,7 @@ export abstract class PropertyMetadataBuilder<B extends PropertyMetadataBuilder<
     /**
      * Type of property.
      */
-    public get type(): CreatableType {
+    public get type(): Function {
         return this._type;
     }
 }
