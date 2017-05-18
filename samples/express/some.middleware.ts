@@ -1,9 +1,9 @@
-import {Middleware} from "../../src/server/decorators/middleware.decorator";
-import {SimpleMiddleware} from "../../src/server/core/models/base/abs.middleware";
-import {Req} from "../../src/server-express/decorators/request.decorator";
-import {Res} from "../../src/server-express/decorators/response.decorator";
-import {Result} from "../../src/server-express/decorators/result.decorator";
-import {Next} from "../../src/server-express/decorators/next.decorator";
+import {Middleware} from "../../src/public/server/decorators/middleware.decorator";
+import {SimpleMiddleware} from "../../src/public/server/core/models/base/abs.middleware";
+import {Req} from "../../src/public/server-express/decorators/request.decorator";
+import {Res} from "../../src/public/server-express/decorators/response.decorator";
+import {Result} from "../../src/public/server-express/decorators/result.decorator";
+import {Next} from "../../src/public/server-express/decorators/next.decorator";
 
 @Middleware()
 export class SomeMiddleware extends SimpleMiddleware {

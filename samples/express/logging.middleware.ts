@@ -1,13 +1,13 @@
-import {Logger} from "../../src/common/loggers/abs.logger";
-import {Component} from "../../src/di/decorators/class.component.decorator";
-import {Inject} from "../../src/di/decorators/prop.inject.decorator";
-import {Next} from "../../src/server-express/decorators/next.decorator";
-import {Req} from "../../src/server-express/decorators/request.decorator";
-import {Res} from "../../src/server-express/decorators/response.decorator";
-import {Result} from "../../src/server-express/decorators/result.decorator";
-import {CoreSharedModule} from "../../src/server/core/internal/modules/shared.module";
-import {SimpleMiddleware} from "../../src/server/core/models/base/abs.middleware";
-import {Middleware} from "../../src/server/decorators/middleware.decorator";
+import {Logger} from "../../src/public/common/loggers/abs.logger";
+import {Component} from "../../src/public/di/decorators/class.component.decorator";
+import {Inject} from "../../src/public/di/decorators/prop.inject.decorator";
+import {Next} from "../../src/public/server-express/decorators/next.decorator";
+import {Req} from "../../src/public/server-express/decorators/request.decorator";
+import {Res} from "../../src/public/server-express/decorators/response.decorator";
+import {Result} from "../../src/public/server-express/decorators/result.decorator";
+import {CoreSharedModule} from "../../src/internal/server/core/modules/shared.module";
+import {SimpleMiddleware} from "../../src/public/server/core/models/base/abs.middleware";
+import {Middleware} from "../../src/public/server/decorators/middleware.decorator";
 import e = require("express");
 
 @Middleware()

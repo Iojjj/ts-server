@@ -1,11 +1,11 @@
 import chai = require("chai");
-import {TypedClass} from "../../../src/type-transformation/decorators/typed-class.decorator";
-import {Typed} from "../../../src/type-transformation/decorators/typed.decorator";
-import {TypedArray} from "../../../src/type-transformation/decorators/typed-array.decorator";
-import {TypedMap} from "../../../src/type-transformation/decorators/typed-map.decorator";
-import {TypedSet} from "../../../src/type-transformation/decorators/typed-set.decorator";
-import {DefaultTypeTransformer} from "../../../src/type-transformation/models/def.type-transformer";
-import {TransformType} from "../../../src/type-transformation/models/transform-type";
+import {TypedClass} from "../../../src/public/type-transformation/decorators/typed-class.decorator";
+import {Typed} from "../../../src/public/type-transformation/decorators/typed.decorator";
+import {TypedArray} from "../../../src/public/type-transformation/decorators/typed-array.decorator";
+import {TypedMap} from "../../../src/public/type-transformation/decorators/typed-map.decorator";
+import {TypedSet} from "../../../src/public/type-transformation/decorators/typed-set.decorator";
+import {DefaultTypeTransformer} from "../../../src/public/type-transformation/models/def.type-transformer";
+import {TransformType} from "../../../src/public/type-transformation/models/transform-type";
 
 @TypedClass()
 class Test {

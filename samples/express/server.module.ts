@@ -1,6 +1,6 @@
 import {Controller1} from "./controller1";
-import {Module} from "../../src/di/decorators/class.module.decorator";
-import {Provides} from "../../src/di/decorators/method.provides.decorator";
+import {Module} from "../../src/public/di/decorators/class.module.decorator";
+import {Provides} from "../../src/public/di/decorators/method.provides.decorator";
 import {Controller2} from "./controller2";
 
 @Module()

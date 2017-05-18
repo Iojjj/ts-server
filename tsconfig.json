@@ -19,7 +19,20 @@
         "pretty": true,
         "stripInternal": true,
         "typeRoots": [ "node_modules/@types" ],
-        "lib": ["es6"]
+        "lib": ["es6"],
+        "baseUrl": "./src",
+        "paths": {
+            "@ts-server/beans": ["public/common/beans", "internal/common/beans/*"],
+            "@ts-server/loggers": [
+                "public/common/loggers",
+                "internal/common/loggers/*"
+            ],
+            "@ts-server/decorator-utils/*": ["public/decorator-utils/*", "internal/decorator-utils/*"],
+            "@ts-server/di/*": ["public/di/*", "internal/di/*"],
+            "@ts-server/server/*": ["public/server/*", "internal/server/*"],
+            "@ts-server/server/express/*": ["public/server-express/*", "internal/server-express/*"],
+            "@ts-server/type-transformation/*": ["public/type-transformation/*", "internal/type-transformation/*"]
+        }
     },
     "exclude": ["node_modules"]
 }

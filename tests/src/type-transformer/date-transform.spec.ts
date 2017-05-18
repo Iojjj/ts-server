@@ -1,6 +1,6 @@
 import chai = require("chai");
-import {DefaultTypeTransformer} from "../../../src/type-transformation/models/def.type-transformer";
-import {TransformType} from "../../../src/type-transformation/models/transform-type";
+import {DefaultTypeTransformer} from "../../../src/public/type-transformation/models/def.type-transformer";
+import {TransformType} from "../../../src/public/type-transformation/models/transform-type";
 
 const transformer = new DefaultTypeTransformer();
 

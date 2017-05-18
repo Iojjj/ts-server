@@ -1,5 +1,5 @@
-import {Component} from "../../../../src/di/decorators/class.component.decorator";
-import {Inject} from "../../../../src/di/decorators/prop.inject.decorator";
+import {Component} from "../../../../src/public/di/decorators/class.component.decorator";
+import {Inject} from "../../../../src/public/di/decorators/prop.inject.decorator";
 import {UtilsModule} from "../../modules/utils.module";
 import {PromiseUtils} from "../../utils/promise.utils";
 import {Coffee} from "../components/coffee";

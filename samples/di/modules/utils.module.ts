@@ -1,12 +1,12 @@
-import {Logger} from "../../../src/common/loggers/abs.logger";
-import {ConsoleLogger} from "../../../src/common/loggers/console.logger";
-import {Provides} from "../../../src/di/decorators/method.provides.decorator";
-import {Singleton} from "../../../src/di/decorators/method.singleton.decorator";
+import {Provides} from "../../../src/public/di/decorators/method.provides.decorator";
+import {Singleton} from "../../../src/public/di/decorators/method.singleton.decorator";
 import {PromiseUtils} from "../utils/promise.utils";
 import {PromiseUtilsImpl} from "../utils/promise.utils.impl";
 import {PumpScope} from "../scopes/pump.scope";
 import {HeaterScope} from "../scopes/heater.scope";
-import {Module} from "../../../src/di/decorators/class.module.decorator";
+import {Module} from "../../../src/public/di/decorators/class.module.decorator";
+import Logger from "../../../src/public/common/_loggers/abs.logger";
+import {ConsoleLogger} from "@ts-server/loggers";
 
 @Module()
 export class UtilsModule {

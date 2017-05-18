@@ -1,5 +1,5 @@
-import {Module} from "../../../src/di/decorators/class.module.decorator";
-import {Provides} from "../../../src/di/decorators/method.provides.decorator";
+import {Module} from "../../../src/public/di/decorators/class.module.decorator";
+import {Provides} from "../../../src/public/di/decorators/method.provides.decorator";
 import {Sugar} from "../models/components/sugar";
 import {Water} from "../models/components/water";
 import {WaterType} from "../models/components/water-type";

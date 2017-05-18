@@ -1,8 +1,8 @@
-import {Provides} from "../../../src/di/decorators/method.provides.decorator";
+import {Provides} from "../../../src/public/di/decorators/method.provides.decorator";
 import {Coffee} from "../models/components/coffee";
 import {AmericanoScope} from "../scopes/americano.scope";
 import {CappuccinoScope} from "../scopes/cappuccino.scope";
-import {Module} from "../../../src/di/decorators/class.module.decorator";
+import {Module} from "../../../src/public/di/decorators/class.module.decorator";
 
 @Module()
 export class CoffeeModule {

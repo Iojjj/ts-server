@@ -1,6 +1,6 @@
-import {RawController} from "../../src/server/decorators/raw-controller.decorator";
+import {RawController} from "../../src/public/server/decorators/raw-controller.decorator";
 import {Controller1} from "./controller1";
-import {Get} from "../../src/server/decorators/get.decorator";
+import {Get} from "../../src/public/server/decorators/get.decorator";
 
 @RawController({
     route: "/cats",

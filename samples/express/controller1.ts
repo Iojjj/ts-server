@@ -1,12 +1,12 @@
 import e = require("express");
-import {Next} from "../../src/server-express/decorators/next.decorator";
-import {Param} from "../../src/server-express/decorators/param.decorator";
-import {Query} from "../../src/server-express/decorators/query.decorator";
-import {Req} from "../../src/server-express/decorators/request.decorator";
-import {Res} from "../../src/server-express/decorators/response.decorator";
-import {JsonController} from "../../src/server/decorators/json-controller.decorator";
-import {AcceptsLanguages} from "../../src/server/decorators/accepts-languages.decorator";
-import {Get} from "../../src/server/decorators/get.decorator";
+import {Next} from "../../src/public/server-express/decorators/next.decorator";
+import {Param} from "../../src/public/server-express/decorators/param.decorator";
+import {Query} from "../../src/public/server-express/decorators/query.decorator";
+import {Req} from "../../src/public/server-express/decorators/request.decorator";
+import {Res} from "../../src/public/server-express/decorators/response.decorator";
+import {JsonController} from "../../src/public/server/decorators/json-controller.decorator";
+import {AcceptsLanguages} from "../../src/public/server/decorators/accepts-languages.decorator";
+import {Get} from "../../src/public/server/decorators/get.decorator";
 
 @JsonController({
     route: "users",
